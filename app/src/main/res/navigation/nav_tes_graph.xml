@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_tes_graph"
+    app:startDestination="@id/bayiFragment2">
+    <fragment
+        android:id="@+id/bayiFragment2"
+        android:name="com.imam.myasi.BayiFragment"
+        android:label="fragment_bayi"
+        tools:layout="@layout/fragment_bayi" />
+    <fragment
+        android:id="@+id/ibuFragment"
+        android:name="com.imam.myasi.IbuFragment"
+        android:label="fragment_ibu"
+        tools:layout="@layout/fragment_ibu" />
+    <fragment
+        android:id="@+id/cemasFragment"
+        android:name="com.imam.myasi.CemasFragment"
+        android:label="fragment_cemas"
+        tools:layout="@layout/fragment_cemas" />
+</navigation>

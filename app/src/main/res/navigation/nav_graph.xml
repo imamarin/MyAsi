@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/FirstFragment">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="com.imam.myasi.FirstFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_first">
+    </fragment>
+
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="com.imam.myasi.SecondFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/threeFragment"
+        android:name="com.imam.myasi.ThirdFragment"
+        android:label="fragment_three"
+        tools:layout="@layout/fragment_three" />
+    <fragment
+        android:id="@+id/listDiagnosa"
+        android:name="com.imam.myasi.ListDiagnosa"
+        android:label="fragment_list_diagnosa"
+        tools:layout="@layout/fragment_list_diagnosa" />
+</navigation>

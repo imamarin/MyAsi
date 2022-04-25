@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".IbuFragment"
+    android:orientation="vertical"
+    android:background="?android:windowBackground">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/judul_tes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DAFTAR INDIKATOR IBU"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:background="#00018786">
+        <ListView
+            android:id="@+id/listViewIbu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:choiceMode="multipleChoice" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:background="#00018786">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/simpan"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#2196F3"
+                android:text="SIMPAN"
+                android:textColor="#FFFFFF"
+                tools:ignore="TextContrastCheck" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+
+</LinearLayout>
