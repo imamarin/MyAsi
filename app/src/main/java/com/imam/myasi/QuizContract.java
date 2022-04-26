@@ -28,4 +28,11 @@ public final class QuizContract {
         public static final String COLUMN_JUDUL = "judul";
         public static final String COLUMN_TANGGAL = "tanggal";
     }
+
+    public static class HasilTable implements BaseColumns{
+        public static final String TABLE_NAME = "hasildiagnosa";
+        public static final String ID_QUESTION = "idquestion";
+        public static final String ID_DIAGNOSA = "iddiagnosa";
+        public static final String COLUMN_HASIL = "hasil";
+    }
 }

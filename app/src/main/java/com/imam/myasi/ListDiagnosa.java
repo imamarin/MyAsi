@@ -102,6 +102,7 @@ public class ListDiagnosa extends Fragment {
             public void onClick(View view) {
                 Log.d(TAG, "onClick: bayi");
                 Intent intent = new Intent(getActivity(),TestActivity.class );
+                intent.putExtra("idDgs", session.getString("idDiagnosa",""));
                 intent.putExtra("tes", "bayi");
                 startActivity(intent);
             }

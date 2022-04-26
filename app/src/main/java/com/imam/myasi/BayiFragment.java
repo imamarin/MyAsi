@@ -99,7 +99,7 @@ public class BayiFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String text = listViewData.getItemAtPosition(i).toString();
-                Toast.makeText(getContext(), i+" "+text, Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -109,12 +109,22 @@ public class BayiFragment extends Fragment {
                 SparseBooleanArray sba = listViewData.getCheckedItemPositions();
                 StringBuffer sb = new StringBuffer("");
 
+                DbHelper dbHelper = new DbHelper(getContext());
+
                 if(sba != null){
                     for(int i = 0; i < sba.size(); i++){
                         if(sba.valueAt(i)){
                             int idx = sba.keyAt(i);
+                            Long di = (Long) listViewData.getAdapter().getItemId(idx)+1;
                             String dt = (String) listViewData.getAdapter().getItem(idx);
                             sb.append(dt);
+
+                            Integer idI = i+1;
+                            String iddgs = getActivity().getIntent().getStringExtra("idDgs");
+                            HasilModel hm = new HasilModel(iddgs,"bayi"+di,"1");
+                            dbHelper.addHasil(hm);
+
+                            getActivity().onBackPressed();
                         }
                     }
                 }

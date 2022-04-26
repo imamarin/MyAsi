@@ -55,9 +55,18 @@ public class DbHelper extends SQLiteOpenHelper {
                     DiagnosaTable.COLUMN_TANGGAL + " DATE " +
                     ")";
 
+            final String SQL_CREATE_HASIL_TABLE = "CREATE TABLE " +
+                    HasilTable.TABLE_NAME + " ( " +
+                    HasilTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    HasilTable.ID_DIAGNOSA + " INTEGER, " +
+                    HasilTable.ID_QUESTION + " VARCHAR(10), " +
+                    HasilTable.COLUMN_HASIL + " INTEGER "+
+                    ")";
+
             db.execSQL(SQL_CREATE_QUESTIONS_TABLE);
             db.execSQL(SQL_CREATE_USER_TABLE);
             db.execSQL(SQL_CREATE_DIAGNOSA_TABLE);
+            db.execSQL(SQL_CREATE_HASIL_TABLE);
 
             fillQuestionsTable();
         }
@@ -131,6 +140,15 @@ public class DbHelper extends SQLiteOpenHelper {
             cv.put(DiagnosaTable.COLUMN_JUDUL, diagnosa.getJudul());
             cv.put(DiagnosaTable.COLUMN_TANGGAL, ft.format(date));
             db.insert(DiagnosaTable.TABLE_NAME, null, cv);
+        }
+
+        public void addHasil(HasilModel hasil){
+            db = getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            cv.put(HasilTable.ID_DIAGNOSA, hasil.getIddiagnosa());
+            cv.put(HasilTable.ID_QUESTION, hasil.getIdquestion());
+            cv.put(HasilTable.COLUMN_HASIL, hasil.getHasil());
+            db.insert(HasilTable.TABLE_NAME, null, cv);
         }
 
         @SuppressLint("Range")
