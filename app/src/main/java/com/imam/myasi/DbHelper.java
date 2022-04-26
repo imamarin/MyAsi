@@ -170,6 +170,43 @@ public class DbHelper extends SQLiteOpenHelper {
 
         }
 
+        public Integer findHasil(HasilModel hasil){
+            int count=0;
+            String vvv=null;
+            db = getReadableDatabase();
+            Cursor c =  db.rawQuery("SELECT * FROM "+HasilTable.TABLE_NAME+" WHERE "+
+                    HasilTable.ID_DIAGNOSA + " = '"+ hasil.getIddiagnosa()+"' AND "+
+                    HasilTable.ID_QUESTION + " LIKE '%"+hasil.getKategori()+"%'",null);
+            if (c.moveToNext()) {
+                vvv="BG";
+                do {
+                    count = c.getInt(Integer.valueOf(c.getColumnIndex(HasilTable.COLUMN_HASIL)))+count;
+                } while (c.moveToNext());
+            }
+
+            c.close();
+            Log.d(TAG, "findHasil: hasilnya = "+hasil.getKategori());
+            Log.d(TAG, "findHasil: COUNTnya = "+count);
+
+            return count;
+        }
+
+        public String findHasil2(HasilModel hasil){
+            db = getReadableDatabase();
+            Cursor c =  db.rawQuery("SELECT * FROM "+HasilTable.TABLE_NAME+" WHERE "+
+                    HasilTable.ID_DIAGNOSA + " = '"+ hasil.getIddiagnosa()+"' AND "+
+                    HasilTable.ID_QUESTION + " = '"+hasil.getIdquestion()+"'",null);
+            if(c.moveToFirst()){
+                c.close();
+                return "1";
+            }else{
+                c.close();
+                return "0";
+            }
+        }
+
+
+
         @SuppressLint("Range")
         public List<Question> getAllQuestions() {
             List<Question> questionList = new ArrayList<>();
@@ -214,6 +251,7 @@ public class DbHelper extends SQLiteOpenHelper {
         public void delData(String table, String Arg){
             SQLiteDatabase db = this.getWritableDatabase();
             db.delete(table, "_id=?", new String[]{Arg});
+            db.delete("hasildiagnosa", "iddiagnosa=?", new String[]{Arg});
         }
 
         public Cursor viewData(String tableName, String where){

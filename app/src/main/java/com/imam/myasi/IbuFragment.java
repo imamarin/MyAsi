@@ -3,6 +3,7 @@ package com.imam.myasi;
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,7 +11,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -19,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -95,15 +99,29 @@ public class IbuFragment extends Fragment {
 
         listItem= new ArrayList<>();
         db = new DbHelper(getContext());
-        viewData();
 
+        String iddgs = getActivity().getIntent().getStringExtra("idDgs");
+        DbHelper dbHelper = new DbHelper(getContext());
+
+        HasilModel hm = new HasilModel(iddgs,null,null,"ibu");
+        Integer hasil = dbHelper.findHasil(hm);
+
+        if(hasil > 0){
+            simpan.setVisibility(View.GONE);
+            viewData(false);
+        }else{
+            viewData(true);
+        }
+        listViewData.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         listViewData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String text = listViewData.getItemAtPosition(i).toString();
-                Toast.makeText(getContext(), i+" "+text, Toast.LENGTH_SHORT).show();
+
             }
         });
+
+
 
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,12 +129,25 @@ public class IbuFragment extends Fragment {
                 SparseBooleanArray sba = listViewData.getCheckedItemPositions();
                 StringBuffer sb = new StringBuffer("");
 
+
+
                 if(sba != null){
                     for(int i = 0; i < sba.size(); i++){
                         if(sba.valueAt(i)){
                             int idx = sba.keyAt(i);
+                            Long di = (Long) listViewData.getAdapter().getItemId(idx)+1;
                             String dt = (String) listViewData.getAdapter().getItem(idx);
                             sb.append(dt);
+
+                            Integer idI = i+1;
+
+                            HasilModel hm = new HasilModel(iddgs,"ibu"+di,"1",null);
+                            dbHelper.addHasil(hm);
+
+                            Intent intent = new Intent(getContext(),DiagnosaActivity.class);
+                            intent.putExtra("listdiagnosa", 1);
+                            getContext().startActivity(intent);
+
                         }
                     }
                 }
@@ -126,13 +157,14 @@ public class IbuFragment extends Fragment {
     }
 
     @SuppressLint("Range")
-    public void viewData(){
+    public void viewData(Boolean enable){
         Cursor cr = db.viewData("quiz_questions","ibu");
 
         if(cr.getCount() < 1 ){
             Toast.makeText(getContext(), "Data Kosong", Toast.LENGTH_LONG).show();
         }else{
             while(cr.moveToNext()){
+
                 listItem.add(cr.getString(cr.getColumnIndex("question")));
             }
 
@@ -145,10 +177,29 @@ public class IbuFragment extends Fragment {
                     View view = super.getView(position, convertView, parent);
 
                     // Initialize a TextView for ListView each Item
-                    TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                    final CheckedTextView ctv = (CheckedTextView) view.findViewById(android.R.id.text1);
+                    if(enable==false){
+                        String iddgs = getActivity().getIntent().getStringExtra("idDgs");
+                        DbHelper dbHelper = new DbHelper(getContext());
+                        Integer pos = position+1;
+
+                        HasilModel hm = new HasilModel(iddgs,"ibu"+pos,null,null);
+                        String hsl = dbHelper.findHasil2(hm);
+                        Log.d(TAG, "getView: "+position+"-"+hsl);
+                        if (hsl.equals("1")){
+                            ctv.setChecked(true);
+                            ctv.setEnabled(false);
+                            ctv.setCheckMarkDrawable(R.drawable.ic_baseline_check_circle_outline_24);
+                        }else{
+                            ctv.setEnabled(true);
+                            ctv.setChecked(false);
+                            ctv.setCheckMarkDrawable(R.drawable.ic_baseline_clear_24);
+                        }
+                    }
+
 
                     // Set the text color of TextView (ListView Item)
-                    tv.setTextColor(Color.GRAY);
+                    ctv.setTextColor(Color.GRAY);
 
 
                     // Generate ListView Item using TextView
@@ -157,7 +208,6 @@ public class IbuFragment extends Fragment {
             };
 
             listViewData.setAdapter(adapter);
-
         }
         cr.close();
     }

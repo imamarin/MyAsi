@@ -22,6 +22,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.imam.myasi.databinding.FragmentFirstBinding;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class FirstFragment extends Fragment {
     ArrayList<DiagnosaModel> diagnosa;
     TextView txtTotal;
     ImageButton adddiagnosa;
+    MaterialButton btnmulai;
 
     @Override
     public View onCreateView(
@@ -52,11 +54,18 @@ public class FirstFragment extends Fragment {
           recyclerView = view.findViewById(R.id.recyclerview);
 //          txtTotal = view.findViewById(R.id.total);
           adddiagnosa = view.findViewById(R.id.addDiagnosa);
-
+          btnmulai = view.findViewById(R.id.btnMulai);
           diagnosa = (ArrayList<DiagnosaModel>) dbHelper.getAllDiagnosa();
 
           diagnosaAdapter = new DiagnosaAdapter(diagnosa, getContext());
 //          txtTotal.setText("Total Data: "+diagnosa.size());
+          if(diagnosa.size()>0){
+              btnmulai.setVisibility(View.GONE);
+              adddiagnosa.setVisibility(View.VISIBLE);
+          }else{
+              btnmulai.setVisibility(View.VISIBLE);
+              adddiagnosa.setVisibility(View.GONE);
+          }
           recyclerView.setAdapter(diagnosaAdapter);
 
           LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -64,6 +73,50 @@ public class FirstFragment extends Fragment {
           recyclerView.setLayoutManager(llm);
 
           adddiagnosa.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Log.d(TAG, "onClick: bisa");
+
+                AlertDialog.Builder alertD = new AlertDialog.Builder(getContext());
+                final EditText editDiagnosa = new EditText(getContext());
+                alertD.setTitle("Tambah Diagnosa");
+                alertD.setView(editDiagnosa);
+
+                LinearLayout layoutDignosa = new LinearLayout(getContext());
+                layoutDignosa.setOrientation(LinearLayout.VERTICAL);
+                layoutDignosa.addView(editDiagnosa);
+                alertD.setView(layoutDignosa);
+
+                alertD.setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DiagnosaModel dgs = new DiagnosaModel(editDiagnosa.getText().toString(),0);
+                        dbHelper.addDiagnosa(dgs);
+
+                        getActivity().finish();
+                        getActivity().overridePendingTransition( 0, 0);
+                        Intent intent = new Intent(getActivity(), DiagnosaActivity.class);
+                        getActivity().startActivity(intent);
+                        getActivity().overridePendingTransition( 0, 0);
+                    }
+                });
+
+                alertD.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+                AlertDialog alertDiagnosa = alertD.create();
+                alertDiagnosa.show();
+
+            }
+        });
+
+        btnmulai.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

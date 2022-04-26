@@ -41,7 +41,7 @@ public class ListDiagnosa extends Fragment {
     private String mParam2;
     private ImageButton backdiagnosa;
     private MaterialCardView indikatorbayi, indikatoribu, tescemas;
-    private TextView title;
+    private TextView title,txtbayi,txtibu,txtcemas;
     View root;
     public ListDiagnosa() {
         // Required empty public constructor
@@ -94,9 +94,29 @@ public class ListDiagnosa extends Fragment {
         indikatoribu = view.findViewById(R.id.indikatorIbu);
         tescemas = view.findViewById(R.id.tesCemas);
         title = view.findViewById(R.id.title_diagnosa);
+        txtbayi = view.findViewById(R.id.txtBayi);
+        txtibu = view.findViewById(R.id.txtIbu);
+        txtcemas = view.findViewById(R.id.txtCemas);
 
         @SuppressLint("WrongConstant") SharedPreferences session = ((Activity) getContext()).getSharedPreferences("sessionku", Context.MODE_APPEND);
         title.setText(session.getString("jdlDiagnosa",""));
+
+        String iddgs = session.getString("idDiagnosa","");
+        DbHelper dbHelper = new DbHelper(getContext());
+
+        HasilModel hmibu = new HasilModel(iddgs,null,null,"ibu");
+        Integer nilaiIbu = dbHelper.findHasil(hmibu);
+        Log.d(TAG, "onViewCreated: nilai ibu= "+nilaiIbu);
+        txtibu.setText(String.valueOf(nilaiIbu));
+
+        HasilModel hmbayi = new HasilModel(iddgs,null,null,"bayi");
+        Integer nilaiBayi = dbHelper.findHasil(hmbayi);
+        txtbayi.setText(String.valueOf(nilaiBayi));
+
+        HasilModel hmcemas = new HasilModel(iddgs,null,null,"cemas");
+        Integer nilaiCemas = dbHelper.findHasil(hmcemas);
+        txtcemas.setText(String.valueOf(nilaiCemas));
+
         indikatorbayi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +133,7 @@ public class ListDiagnosa extends Fragment {
             public void onClick(View view) {
                 Log.d(TAG, "onClick: ibu");
                 Intent intent = new Intent(getActivity(),TestActivity.class );
+                intent.putExtra("idDgs", session.getString("idDiagnosa",""));
                 intent.putExtra("tes", "ibu");
                 startActivity(intent);
             }
@@ -123,6 +144,7 @@ public class ListDiagnosa extends Fragment {
             public void onClick(View view) {
                 Log.d(TAG, "onClick: cemas");
                 Intent intent = new Intent(getActivity(),TestActivity.class );
+                intent.putExtra("idDgs", session.getString("idDiagnosa",""));
                 intent.putExtra("tes", "cemas");
                 startActivity(intent);
             }

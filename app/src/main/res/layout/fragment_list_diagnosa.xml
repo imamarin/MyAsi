@@ -73,6 +73,7 @@
                 android:layout_marginTop="15dp"
                 android:weightSum="3">
                 <TextView
+                    android:id="@+id/txtBayi"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="0"
@@ -83,6 +84,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/txtIbu"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="0"
@@ -93,6 +95,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:id="@+id/txtCemas"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="0"
@@ -168,11 +171,11 @@
                         <com.google.android.material.button.MaterialButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="80dp"
-                            android:paddingRight="80dp"
-                            android:paddingTop="10dp"
-                            android:paddingBottom="10dp"
                             android:backgroundTint="#009688"
+                            android:paddingLeft="80dp"
+                            android:paddingTop="10dp"
+                            android:paddingRight="80dp"
+                            android:paddingBottom="10dp"
                             android:text="AYO TERAPI"
                             app:cornerRadius="20dp" />
                     </RelativeLayout>
