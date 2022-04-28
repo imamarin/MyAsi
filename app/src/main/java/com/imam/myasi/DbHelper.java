@@ -110,6 +110,36 @@ public class DbHelper extends SQLiteOpenHelper {
             addQuestion(q14);
             Question q15 = new Question("Frekuensi menyusui >8x per hari", "bayi", "bayi6");
             addQuestion(q15);
+            Question q16 = new Question("Saya merasa lebih gugup dan cemas dari biasanya" , "cemas", "cemas1");
+            addQuestion(q16);
+            Question q17 = new Question("Saya merasa takut tanpa alasan sama sekali", "cemas", "cemas2");
+            addQuestion(q17);
+            Question q18 = new Question("Saya mudah marah atau merasa panic", "cemas","cemas3");
+            addQuestion(q18);
+            Question q19 = new Question("Saya merasa seperti jatuh terpisah dan akan hancur berkeping-keping", "cemas","cemas4");
+            addQuestion(q19);
+            Question q20 = new Question("Saya merasa bahwa semuanya baik-baik saja dan tidak ada hal buruk akan terjadi", "cemas", "cemas5");
+            addQuestion(q20);
+            Question q21 = new Question("Lengan dan kaki saya gemetaran", "cemas", "cemas6");
+            addQuestion(q21);
+            Question q22 = new Question("Saya terganggu oleh nyeri kepala leher dan nyeri pinggul", "cemas", "cemas7");
+            addQuestion(q22);
+            Question q23 = new Question("Saya merasa lemah dan mudah lelah", "cemas", "cemas8");
+            addQuestion(q23);
+            Question q24 = new Question("Saya merasa tenang dan dapat duduk diam dengan mudah", "cemas", "cemas9");
+            addQuestion(q24);
+            Question q25 = new Question("Saya merasa jantung saya berdebar-debar", "cemas", "cemas10");
+            addQuestion(q25);
+            Question q26 = new Question("Saya merasa pusing tujuh keliling", "cemas", "bayi11");
+            addQuestion(q26);
+            Question q27 = new Question("Saya telah pingsan atau merasa seperti itu", "cemas", "cemas12");
+            addQuestion(q27);
+            Question q28 = new Question("Saya dapat bernapas dengan mudah", "cemas", "cemas13");
+            addQuestion(q28);
+            Question q29 = new Question("Saya merasa jari-jari tangan dan kaki mati rasa dan kesemutan", "cemas", "cemas14");
+            addQuestion(q29);
+            Question q30 = new Question("Saya terganggu oleh nyeri lambung atau gangguan pencernaan", "cemas", "cemas15");
+            addQuestion(q30);
 
         }
 
