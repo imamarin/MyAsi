@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -43,10 +45,13 @@ public class CemasFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private ListView listViewData;
+//    private ListView listViewData;
+    private RecyclerView listViewData;
 
-    ArrayList<String> listItem;
-    ListAdapter adapter;
+//    ArrayList<String> listItem;
+    ArrayList<CemasModel> cemasmodel;
+//    ListAdapter adapter;
+    CemasAdapter adapter;
     DbHelper db;
     AppCompatButton simpan;
 
@@ -92,14 +97,22 @@ public class CemasFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        listViewData = view.findViewById(R.id.listViewCemas2);
+        listViewData = view.findViewById(R.id.listViewCemas);
         simpan = view.findViewById(R.id.simpan);
+
         db = new DbHelper(getContext());
         String iddgs = getActivity().getIntent().getStringExtra("idDgs");
+
         DbHelper dbHelper = new DbHelper(getContext());
-        adapter = new ListAdapter(getActivity(), createItem());
+        cemasmodel = (ArrayList<CemasModel>) createItem();
+
+        adapter = new CemasAdapter(cemasmodel,getContext());
 
         listViewData.setAdapter(adapter);
+
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm.setOrientation(RecyclerView.HORIZONTAL);
+        listViewData.setLayoutManager(llm);
 
 //        simpan.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -135,16 +148,17 @@ public class CemasFragment extends Fragment {
     }
 
     @SuppressLint("Range")
-    private ArrayList<CemasModel> createItem(){
-        ArrayList<CemasModel>data=new ArrayList<>();
+    private List<CemasModel> createItem(){
+        List<CemasModel>data=new ArrayList<>();
         Cursor cr = db.viewData("quiz_questions","cemas");
 
         if(cr.getCount() < 1 ){
             Toast.makeText(getContext(), "Data Kosong", Toast.LENGTH_LONG).show();
         }else{
             while(cr.moveToNext()){
-
-                data.add(new CemasModel(cr.getString(cr.getColumnIndex("question"))));
+                CemasModel model = new CemasModel();
+                model.setPertanyaan(cr.getString(cr.getColumnIndex("question")));
+                data.add(model);
             }
 
 

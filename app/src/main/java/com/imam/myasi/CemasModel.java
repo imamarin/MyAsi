@@ -4,6 +4,8 @@ public class CemasModel {
 
     private String pertanyaan;
 
+    public CemasModel(){}
+
     public CemasModel(String pertanyaan) {
         this.pertanyaan = pertanyaan;
     }

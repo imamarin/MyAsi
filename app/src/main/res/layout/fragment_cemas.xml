@@ -24,8 +24,8 @@
         android:layout_height="match_parent"
         android:gravity="bottom"
         android:background="#00018786">
-        <ListView
-            android:id="@+id/listViewCemas2"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listViewCemas"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:choiceMode="multipleChoice" />

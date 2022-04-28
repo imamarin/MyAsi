@@ -2,50 +2,70 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <TextView
-        android:id="@+id/txtpertanyaan"
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="Text List"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="?android:attr/listChoiceIndicatorSingle"
-            android:gravity="center_horizontal|bottom"
-            android:layout_weight="1"
-            android:button="@null"
-            android:text="Tidak Pernah"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="?android:attr/listChoiceIndicatorSingle"
-            android:gravity="center_horizontal|bottom"
-            android:layout_weight="1"
-            android:button="@null"
-            android:text="Kadang - kadang"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="?android:attr/listChoiceIndicatorSingle"
-            android:gravity="center_horizontal|bottom"
-            android:layout_weight="1"
-            android:button="@null"
-            android:text="Sebagian Waktu"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="?android:attr/listChoiceIndicatorSingle"
-            android:gravity="center_horizontal|bottom"
-            android:layout_weight="1"
-            android:button="@null"
-            android:text="Hampir Setiap Waktu"/>
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="100dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="4dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+                <TextView
+                android:id="@+id/txtpertanyaan"
+                android:textSize="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:layout_marginBottom="25dp"
+                android:text="Text List"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+                <CheckedTextView
+                    android:background="#F44336"
+                    android:layout_marginBottom="10dp"
+                    android:padding="10dp"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Tidak Pernah"/>
+                <CheckedTextView
+                    android:background="#F44336"
+                    android:layout_marginBottom="10dp"
+                    android:padding="10dp"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="Kadang - kadang"/>
+                <CheckedTextView
+                    android:background="#F44336"
+                    android:layout_marginBottom="10dp"
+                    android:padding="10dp"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Sebagian Waktu"/>
+                <CheckedTextView
+                    android:background="#F44336"
+                    android:padding="10dp"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Hampir Setiap Waktu"/>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
 </LinearLayout>

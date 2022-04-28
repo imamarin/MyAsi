@@ -278,6 +278,8 @@ public class DbHelper extends SQLiteOpenHelper {
             return dataList;
         }
 
+
+
         public void delData(String table, String Arg){
             SQLiteDatabase db = this.getWritableDatabase();
             db.delete(table, "_id=?", new String[]{Arg});
