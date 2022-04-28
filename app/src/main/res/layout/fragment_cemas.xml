@@ -12,7 +12,7 @@
         android:id="@+id/judul_tes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="DAFTAR INDIKATOR IBU"
+        android:text="DAFTAR INDIKATOR CEMAS"
         android:layout_marginTop="15dp"
         android:gravity="center_horizontal"
         android:textStyle="bold"
@@ -25,7 +25,7 @@
         android:gravity="bottom"
         android:background="#00018786">
         <ListView
-            android:id="@+id/listViewCemas"
+            android:id="@+id/listViewCemas2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:choiceMode="multipleChoice" />
@@ -45,7 +45,6 @@
                 tools:ignore="TextContrastCheck" />
         </RelativeLayout>
     </RelativeLayout>
-
 
 
 </LinearLayout>
