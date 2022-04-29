@@ -106,7 +106,6 @@ public class ListDiagnosa extends Fragment {
 
         HasilModel hmibu = new HasilModel(iddgs,null,null,"ibu");
         Integer nilaiIbu = dbHelper.findHasil(hmibu);
-        Log.d(TAG, "onViewCreated: nilai ibu= "+nilaiIbu);
         txtibu.setText(String.valueOf(nilaiIbu));
 
         HasilModel hmbayi = new HasilModel(iddgs,null,null,"bayi");

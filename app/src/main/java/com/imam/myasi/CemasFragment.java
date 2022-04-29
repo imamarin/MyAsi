@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -52,8 +53,11 @@ public class CemasFragment extends Fragment {
     ArrayList<CemasModel> cemasmodel;
 //    ListAdapter adapter;
     CemasAdapter adapter;
+    CemasAdapter cemasAdapter;
     DbHelper db;
     AppCompatButton simpan;
+    String[] idPertanyaan;
+    String[] Hasil;
 
     public CemasFragment() {
         // Required empty public constructor
@@ -106,13 +110,57 @@ public class CemasFragment extends Fragment {
         DbHelper dbHelper = new DbHelper(getContext());
         cemasmodel = (ArrayList<CemasModel>) createItem();
 
-        adapter = new CemasAdapter(cemasmodel,getContext());
+        idPertanyaan = new String[15];
+        Hasil = new String[15];
+        adapter = new CemasAdapter(cemasmodel, getContext(), new CemasAdapter.PassData() {
+            @Override
+            public void onClick(String pertanyaan, String id, String hasil, int pos) {
+                Toast.makeText(getContext(), pertanyaan+" - "+id, Toast.LENGTH_LONG).show();
+                idPertanyaan[pos]=id;
+                Hasil[pos]=hasil;
+
+                adapter.setIdHasil(Hasil);
+
+//                HasilModel hm = new HasilModel(iddgs,id,hasil,"cemas");
+//                String hsl = db.findHasil2(hm);
+//                if(hsl.equals("1")){
+//                    Log.d(TAG, "onClick: update="+id+"-"+hasil);
+//                    db.updateHasil(hm);
+//                }else{
+//                    Log.d(TAG, "onClick: insert="+id+"-"+hasil);
+//                    db.addHasil(hm);
+//                }
+            }
+        });
 
         listViewData.setAdapter(adapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(RecyclerView.HORIZONTAL);
         listViewData.setLayoutManager(llm);
+        simpan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Arrays.toString(idPertanyaan).indexOf("null") < 0){
+                    for (int a=0;a<idPertanyaan.length;a++){
+                        HasilModel hm = new HasilModel(iddgs,idPertanyaan[a],Hasil[a],"cemas");
+                        String hsl = db.findHasil2(hm);
+                        if(hsl.equals("1")){
+                            Log.d(TAG, "onClick: update="+idPertanyaan[a]+"-"+Hasil[a]);
+                            db.updateHasil(hm);
+                        }else{
+                            Log.d(TAG, "onClick: insert="+idPertanyaan[a]+"-"+Hasil[a]);
+                            db.addHasil(hm);
+                        }
+                    }
+                    Intent intent = new Intent(getContext(),DiagnosaActivity.class);
+                    intent.putExtra("listdiagnosa", 1);
+                    getContext().startActivity(intent);
+                }else{
+                    Toast.makeText(getContext(),"Maaf, ada pertanyaan yang belum dijawab!",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
 //        simpan.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -158,6 +206,7 @@ public class CemasFragment extends Fragment {
             while(cr.moveToNext()){
                 CemasModel model = new CemasModel();
                 model.setPertanyaan(cr.getString(cr.getColumnIndex("question")));
+                model.setIdPertanyaan(cr.getString(cr.getColumnIndex("_id")));
                 data.add(model);
             }
 
@@ -167,5 +216,7 @@ public class CemasFragment extends Fragment {
 
         return data;
     }
+
+
 
 }

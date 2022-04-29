@@ -4,6 +4,8 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,7 +40,9 @@ public class TestActivity extends AppCompatActivity {
         backTombol.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                Intent intent = new Intent(getApplicationContext(),DiagnosaActivity.class);
+                intent.putExtra("listdiagnosa", 1);
+                startActivity(intent);
             }
         });
     }

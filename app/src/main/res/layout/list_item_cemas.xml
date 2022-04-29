@@ -33,36 +33,48 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical">
-                <CheckedTextView
-                    android:background="#F44336"
-                    android:layout_marginBottom="10dp"
-                    android:padding="10dp"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Tidak Pernah"/>
-                <CheckedTextView
-                    android:background="#F44336"
-                    android:layout_marginBottom="10dp"
-                    android:padding="10dp"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:text="Kadang - kadang"/>
-                <CheckedTextView
-                    android:background="#F44336"
-                    android:layout_marginBottom="10dp"
-                    android:padding="10dp"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Sebagian Waktu"/>
-                <CheckedTextView
-                    android:background="#F44336"
-                    android:padding="10dp"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Hampir Setiap Waktu"/>
+                <RadioGroup
+                    android:id="@+id/rg_cemas"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+                    <RadioButton
+                        android:id="@+id/tidakpernah"
+                        android:background="#F44336"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
+                        android:layout_width="200dp"
+                        android:button="@android:color/transparent"
+                        android:layout_height="wrap_content"
+                        android:text="Tidak Pernah"/>
+                    <RadioButton
+                        android:id="@+id/kadangkadang"
+                        android:background="#F44336"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
+                        android:layout_width="200dp"
+                        android:button="@android:color/transparent"
+                        android:layout_height="wrap_content"
+                        android:text="Kadang - kadang"/>
+                    <RadioButton
+                        android:id="@+id/sebagian"
+                        android:background="#F44336"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
+                        android:layout_width="200dp"
+                        android:button="@android:color/transparent"
+                        android:layout_height="wrap_content"
+                        android:text="Sebagian Waktu"/>
+                    <RadioButton
+                        android:id="@+id/hampirwaktu"
+                        android:background="#F44336"
+                        android:padding="10dp"
+                        android:layout_width="200dp"
+                        android:button="@android:color/transparent"
+                        android:layout_height="wrap_content"
+                        android:text="Hampir Setiap Waktu"/>
+                </RadioGroup>
+
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

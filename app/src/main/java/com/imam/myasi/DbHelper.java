@@ -130,7 +130,7 @@ public class DbHelper extends SQLiteOpenHelper {
             addQuestion(q24);
             Question q25 = new Question("Saya merasa jantung saya berdebar-debar", "cemas", "cemas10");
             addQuestion(q25);
-            Question q26 = new Question("Saya merasa pusing tujuh keliling", "cemas", "bayi11");
+            Question q26 = new Question("Saya merasa pusing tujuh keliling", "cemas", "cemas11");
             addQuestion(q26);
             Question q27 = new Question("Saya telah pingsan atau merasa seperti itu", "cemas", "cemas12");
             addQuestion(q27);
@@ -147,6 +147,7 @@ public class DbHelper extends SQLiteOpenHelper {
             ContentValues cv = new ContentValues();
             cv.put(QuestionsTable.COLUMN_QUESTION, question.getQuestion());
             cv.put(QuestionsTable.COLUMN_CATEGORY, question.getCategory());
+            cv.put(QuestionsTable._ID, question.getId());
             db.insert(QuestionsTable.TABLE_NAME, null, cv);
         }
 
@@ -233,6 +234,35 @@ public class DbHelper extends SQLiteOpenHelper {
                 c.close();
                 return "0";
             }
+        }
+
+        public Integer findHasil3(HasilModel hasil){
+            Integer cHasil=0;
+            db = getReadableDatabase();
+            Cursor c =  db.rawQuery("SELECT * FROM "+HasilTable.TABLE_NAME+" WHERE "+
+                    HasilTable.ID_DIAGNOSA + " = '"+ hasil.getIddiagnosa()+"' AND "+
+                    HasilTable.ID_QUESTION + " = '"+hasil.getIdquestion()+"'",null);
+            if(c.moveToFirst()){
+                cHasil = c.getInt(Integer.valueOf(c.getColumnIndex(HasilTable.COLUMN_HASIL)));
+                c.close();
+            }else{
+                c.close();
+            }
+            return cHasil;
+        }
+
+        public void updateHasil(HasilModel hasil){
+            db = getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            cv.put(HasilTable.COLUMN_HASIL,hasil.getHasil());
+            db.update(HasilTable.TABLE_NAME,cv,
+                    HasilTable.ID_DIAGNOSA+"=? AND "+
+                    HasilTable.ID_QUESTION+"=?",new String[]{hasil.getIddiagnosa(),hasil.getIdquestion()});
+
+//            db.rawQuery("UPDATE "+HasilTable.TABLE_NAME+" SET hasil="+HasilTable.COLUMN_HASIL+
+//                    " WHERE "+
+//                    HasilTable.ID_DIAGNOSA + " = '"+ hasil.getIddiagnosa()+"' AND "+
+//                    HasilTable.ID_QUESTION + " = '"+hasil.getIdquestion()+"'",null);
         }
 
 
