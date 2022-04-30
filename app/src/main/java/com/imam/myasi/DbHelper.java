@@ -325,4 +325,15 @@ public class DbHelper extends SQLiteOpenHelper {
 
         }
 
+        public Cursor viewDataHasil(String[] where){
+            SQLiteDatabase db = this.getReadableDatabase();
+            String query = "SELECT * FROM hasildiagnosa as hd JOIN quiz_questions as qq"+
+                    " ON hd.idquestion=qq._id  WHERE hd.iddiagnosa = '"+where[0]
+                    +"' AND qq.category="+"'"+where[1]+"'";
+            Cursor cursor = db.rawQuery(query, null);
+
+            return cursor;
+
+        }
+
 }

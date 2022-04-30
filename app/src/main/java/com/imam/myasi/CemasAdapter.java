@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CemasAdapter extends RecyclerView.Adapter<CemasAdapter.CemasVH> {
 
@@ -56,12 +58,36 @@ public class CemasAdapter extends RecyclerView.Adapter<CemasAdapter.CemasVH> {
 
     public interface PassData{
         void onClick(String pertanyaan,String id, String hasil, int pos);
+        void onCreate(String[] hasil);
     }
 
     public CemasAdapter(ArrayList<CemasModel> cemas, Context context,  PassData passData) {
         this.cemas = cemas;
         this.context = context;
         this.passData = passData;
+        initArray();
+    }
+
+    @SuppressLint("Range")
+    private void initArray() {
+        this.idHasil = new String[15];
+        this.idPertanyaan = new String[15];
+
+        String iddgs = ((Activity) context).getIntent().getStringExtra("idDgs");
+        DbHelper db = new DbHelper(context.getApplicationContext());
+        String[] where = {iddgs,"cemas"};
+        Cursor cr = db.viewDataHasil(where);
+        if(cr.getCount()>0){
+            while(cr.moveToNext()){
+                this.idHasil[cr.getPosition()] = cr.getString(cr.getColumnIndex("hasil"));
+                this.idPertanyaan[cr.getPosition()] = cr.getString(cr.getColumnIndex("idquestion"));
+            }
+        }else {
+
+        }
+
+
+        cr.close();
     }
 
     @NonNull
@@ -74,82 +100,96 @@ public class CemasAdapter extends RecyclerView.Adapter<CemasAdapter.CemasVH> {
         return cvh;
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(@NonNull CemasVH holder, @SuppressLint("RecyclerView") int pos) {
+
         CemasModel cm = cemas.get(pos);
-
-
-        holder.pertanyaan.setText(cm.getPertanyaan() + cm.getIdPertanyaan());
 
         String iddgs = ((Activity) context).getIntent().getStringExtra("idDgs");
         DbHelper dbHelper = new DbHelper(((Activity) context).getBaseContext());
         Integer p = pos+1;
 
+        holder.pertanyaan.setText(p+". "+cm.getPertanyaan());
+
 //        HasilModel hm = new HasilModel(iddgs,"cemas"+p,null,null);
 //        Integer hsl = dbHelper.findHasil3(hm);
 //        Log.d(ContentValues.TAG, "getView: "+pos+"-"+hsl);
 //        if(dbHelper.findHasil2(hm).equals("1")){
-//            if (hsl == 1){
-//                holder.tidakpernah.setBackgroundResource(R.color.hijau);
-//                holder.kadang.setBackgroundResource(R.color.merah);
-//                holder.sebagian.setBackgroundResource(R.color.merah);
-//                holder.hampir.setBackgroundResource(R.color.merah);
-//            }else if (hsl == 2){
-//                holder.kadang.setBackgroundResource(R.color.hijau);
-//                holder.tidakpernah.setBackgroundResource(R.color.merah);
-//                holder.sebagian.setBackgroundResource(R.color.merah);
-//                holder.hampir.setBackgroundResource(R.color.merah);
-//            }else if (hsl == 3){
-//                holder.sebagian.setBackgroundResource(R.color.hijau);
-//                holder.tidakpernah.setBackgroundResource(R.color.merah);
-//                holder.kadang.setBackgroundResource(R.color.merah);
-//                holder.hampir.setBackgroundResource(R.color.merah);
-//
-//            }else if (hsl == 4){
-//                holder.hampir.setBackgroundResource(R.color.hijau);
-//                holder.sebagian.setBackgroundResource(R.color.merah);
-//                holder.tidakpernah.setBackgroundResource(R.color.merah);
-//                holder.kadang.setBackgroundResource(R.color.merah);
-//            }else{
-//                holder.sebagian.setBackgroundResource(R.color.merah);
-//                holder.tidakpernah.setBackgroundResource(R.color.merah);
-//                holder.kadang.setBackgroundResource(R.color.merah);
-//                holder.hampir.setBackgroundResource(R.color.merah);
-//
-//            }
+//            idHasil[pos] = hsl.toString();
+//            idPertanyaan[pos] = cm.getIdPertanyaan();
+//            Log.d(TAG, "onBindViewHolder: "+getIdHasil());
+////            if (hsl == 1){
+////                holder.tidakpernah.setBackgroundResource(R.color.hijau);
+////                holder.kadang.setBackgroundResource(R.color.merah);
+////                holder.sebagian.setBackgroundResource(R.color.merah);
+////                holder.hampir.setBackgroundResource(R.color.merah);
+////            }else if (hsl == 2){
+////                holder.kadang.setBackgroundResource(R.color.hijau);
+////                holder.tidakpernah.setBackgroundResource(R.color.merah);
+////                holder.sebagian.setBackgroundResource(R.color.merah);
+////                holder.hampir.setBackgroundResource(R.color.merah);
+////            }else if (hsl == 3){
+////                holder.sebagian.setBackgroundResource(R.color.hijau);
+////                holder.tidakpernah.setBackgroundResource(R.color.merah);
+////                holder.kadang.setBackgroundResource(R.color.merah);
+////                holder.hampir.setBackgroundResource(R.color.merah);
+////
+////            }else if (hsl == 4){
+////                holder.hampir.setBackgroundResource(R.color.hijau);
+////                holder.sebagian.setBackgroundResource(R.color.merah);
+////                holder.tidakpernah.setBackgroundResource(R.color.merah);
+////                holder.kadang.setBackgroundResource(R.color.merah);
+////            }else{
+////                holder.sebagian.setBackgroundResource(R.color.merah);
+////                holder.tidakpernah.setBackgroundResource(R.color.merah);
+////                holder.kadang.setBackgroundResource(R.color.merah);
+////                holder.hampir.setBackgroundResource(R.color.merah);
+////                Log.d(TAG, "onBindViewHolder: holder");
+////            }
 //        }
-
+        Log.d(TAG, "onBindViewHolder: holder="+ Arrays.toString(getIdHasil()));
         if(getIdHasil()!=null){
-            if (idHasil[pos]== "1"){
-                holder.tidakpernah.setBackgroundResource(R.color.hijau);
-                holder.kadang.setBackgroundResource(R.color.merah);
-                holder.sebagian.setBackgroundResource(R.color.merah);
-                holder.hampir.setBackgroundResource(R.color.merah);
-            }else if (idHasil[pos]== "2"){
-                holder.kadang.setBackgroundResource(R.color.hijau);
-                holder.tidakpernah.setBackgroundResource(R.color.merah);
-                holder.sebagian.setBackgroundResource(R.color.merah);
-                holder.hampir.setBackgroundResource(R.color.merah);
-            }else if (idHasil[pos]== "3"){
-                holder.sebagian.setBackgroundResource(R.color.hijau);
-                holder.tidakpernah.setBackgroundResource(R.color.merah);
-                holder.kadang.setBackgroundResource(R.color.merah);
-                holder.hampir.setBackgroundResource(R.color.merah);
-
-            }else if (idHasil[pos]== "4"){
-                holder.hampir.setBackgroundResource(R.color.hijau);
+            if(idHasil[pos] == null){
                 holder.sebagian.setBackgroundResource(R.color.merah);
                 holder.tidakpernah.setBackgroundResource(R.color.merah);
                 holder.kadang.setBackgroundResource(R.color.merah);
+                holder.hampir.setBackgroundResource(R.color.merah);
+                Log.d(TAG, "onBindViewHolder: array ="+idHasil[0]);
             }else{
-                holder.sebagian.setBackgroundResource(R.color.merah);
-                holder.tidakpernah.setBackgroundResource(R.color.merah);
-                holder.kadang.setBackgroundResource(R.color.merah);
-                holder.hampir.setBackgroundResource(R.color.merah);
+                if (idHasil[pos].equals("1")){
+                    holder.tidakpernah.setBackgroundResource(R.color.hijau);
+                    holder.kadang.setBackgroundResource(R.color.merah);
+                    holder.sebagian.setBackgroundResource(R.color.merah);
+                    holder.hampir.setBackgroundResource(R.color.merah);
+                }else if (idHasil[pos].equals("2")){
+                    holder.kadang.setBackgroundResource(R.color.hijau);
+                    holder.tidakpernah.setBackgroundResource(R.color.merah);
+                    holder.sebagian.setBackgroundResource(R.color.merah);
+                    holder.hampir.setBackgroundResource(R.color.merah);
+                }else if (idHasil[pos].equals("3")){
+                    holder.sebagian.setBackgroundResource(R.color.hijau);
+                    holder.tidakpernah.setBackgroundResource(R.color.merah);
+                    holder.kadang.setBackgroundResource(R.color.merah);
+                    holder.hampir.setBackgroundResource(R.color.merah);
 
+                }else if (idHasil[pos].equals("4")){
+                    holder.hampir.setBackgroundResource(R.color.hijau);
+                    holder.sebagian.setBackgroundResource(R.color.merah);
+                    holder.tidakpernah.setBackgroundResource(R.color.merah);
+                    holder.kadang.setBackgroundResource(R.color.merah);
+                }else{
+                    holder.sebagian.setBackgroundResource(R.color.merah);
+                    holder.tidakpernah.setBackgroundResource(R.color.merah);
+                    holder.kadang.setBackgroundResource(R.color.merah);
+                    holder.hampir.setBackgroundResource(R.color.merah);
+                    Log.d(TAG, "onBindViewHolder: array ="+idHasil[0]);
+                }
             }
+
         }
 
+//        passData.onCreate(getIdHasil());
 
         holder.rgcemas.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @SuppressLint("RestrictedApi")
@@ -203,6 +243,9 @@ public class CemasAdapter extends RecyclerView.Adapter<CemasAdapter.CemasVH> {
             sebagian = v.findViewById(R.id.sebagian);
             hampir = v.findViewById(R.id.hampirwaktu);
             rgcemas = v.findViewById(R.id.rg_cemas);
+
+
+//            passData.onCreate();
         }
 
     }

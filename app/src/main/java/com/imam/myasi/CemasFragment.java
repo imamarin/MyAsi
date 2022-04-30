@@ -112,6 +112,7 @@ public class CemasFragment extends Fragment {
 
         idPertanyaan = new String[15];
         Hasil = new String[15];
+
         adapter = new CemasAdapter(cemasmodel, getContext(), new CemasAdapter.PassData() {
             @Override
             public void onClick(String pertanyaan, String id, String hasil, int pos) {
@@ -131,8 +132,15 @@ public class CemasFragment extends Fragment {
 //                    db.addHasil(hm);
 //                }
             }
+
+            @Override
+            public void onCreate(String[] hasil) {
+                Hasil = hasil;
+            }
         });
 
+        Hasil = adapter.getIdHasil();
+        idPertanyaan = adapter.getIdPertanyaan();
         listViewData.setAdapter(adapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -141,8 +149,8 @@ public class CemasFragment extends Fragment {
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Arrays.toString(idPertanyaan).indexOf("null") < 0){
-                    for (int a=0;a<idPertanyaan.length;a++){
+                if(Arrays.toString(Hasil).indexOf("null") < 0){
+                    for (int a=0;a<Hasil.length;a++){
                         HasilModel hm = new HasilModel(iddgs,idPertanyaan[a],Hasil[a],"cemas");
                         String hsl = db.findHasil2(hm);
                         if(hsl.equals("1")){
@@ -157,6 +165,7 @@ public class CemasFragment extends Fragment {
                     intent.putExtra("listdiagnosa", 1);
                     getContext().startActivity(intent);
                 }else{
+                    Log.d(TAG, "onClick: nilai array ="+Arrays.toString(Hasil));
                     Toast.makeText(getContext(),"Maaf, ada pertanyaan yang belum dijawab!",Toast.LENGTH_LONG).show();
                 }
             }
