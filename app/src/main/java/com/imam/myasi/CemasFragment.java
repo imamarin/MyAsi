@@ -116,7 +116,7 @@ public class CemasFragment extends Fragment {
         adapter = new CemasAdapter(cemasmodel, getContext(), new CemasAdapter.PassData() {
             @Override
             public void onClick(String pertanyaan, String id, String hasil, int pos) {
-                Toast.makeText(getContext(), pertanyaan+" - "+id, Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(), pertanyaan+" - "+id, Toast.LENGTH_LONG).show();
                 idPertanyaan[pos]=id;
                 Hasil[pos]=hasil;
 

@@ -316,6 +316,12 @@ public class DbHelper extends SQLiteOpenHelper {
             db.delete("hasildiagnosa", "iddiagnosa=?", new String[]{Arg});
         }
 
+        public void delHasilData(String[] Arg){
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.delete("hasildiagnosa", "iddiagnosa='"+Arg[0]+"' AND idquestion LIKE '%"+
+                    Arg[1]+"%'", null);
+        }
+
         public Cursor viewData(String tableName, String where){
             SQLiteDatabase db = this.getReadableDatabase();
             String query = "SELECT * FROM "+tableName+" WHERE category="+"'"+where+"'";

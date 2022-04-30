@@ -104,7 +104,6 @@ public class BayiFragment extends Fragment {
         Integer hasil = dbHelper.findHasil(hm);
 
         if(hasil > 0){
-            simpan.setVisibility(View.GONE);
             viewData(false);
         }else{
             viewData(true);
@@ -125,20 +124,20 @@ public class BayiFragment extends Fragment {
             public void onClick(View view) {
                 SparseBooleanArray sba = listViewData.getCheckedItemPositions();
                 StringBuffer sb = new StringBuffer("");
-
-
-
+                String[] where = {iddgs,"bayi"};
+                dbHelper.delHasilData(where);
                 if(sba != null){
                     for(int i = 0; i < sba.size(); i++){
                         if(sba.valueAt(i)){
                             int idx = sba.keyAt(i);
                             Long di = (Long) listViewData.getAdapter().getItemId(idx)+1;
-                            String dt = (String) listViewData.getAdapter().getItem(idx);
-                            sb.append(dt);
+//                            String dt = (String) listViewData.getAdapter().getItem(idx);
+                            sb.append(di);
 
                             Integer idI = i+1;
 
                             HasilModel hm = new HasilModel(iddgs,"bayi"+di,"1",null);
+
                             dbHelper.addHasil(hm);
 
                             Intent intent = new Intent(getContext(),DiagnosaActivity.class);
@@ -147,7 +146,7 @@ public class BayiFragment extends Fragment {
                         }
                     }
                 }
-                Log.d(TAG, "onClick: "+sb.toString());
+                Log.d(TAG, "onClick: SBA"+sb.toString());
             }
         });
     }
@@ -184,12 +183,14 @@ public class BayiFragment extends Fragment {
                         Log.d(TAG, "getView: "+position+"-"+hsl);
                         if (hsl.equals("1")){
                             ctv.setChecked(true);
-                            ctv.setEnabled(false);
-                            ctv.setCheckMarkDrawable(R.drawable.ic_baseline_check_circle_outline_24);
+                            ctv.setEnabled(true);
+                            listViewData.setItemChecked(position,true);
+//                            ctv.setCheckMarkDrawable(R.drawable.ic_baseline_check_circle_outline_24);
                         }else{
                             ctv.setEnabled(true);
                             ctv.setChecked(false);
-                            ctv.setCheckMarkDrawable(R.drawable.ic_baseline_clear_24);
+                            listViewData.setItemChecked(position,false);
+//                            ctv.setCheckMarkDrawable(R.drawable.ic_baseline_clear_24);
                         }
                     }
 
@@ -202,7 +203,6 @@ public class BayiFragment extends Fragment {
                     return view;
                 }
             };
-
             listViewData.setAdapter(adapter);
         }
         cr.close();

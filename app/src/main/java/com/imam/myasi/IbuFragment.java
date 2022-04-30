@@ -107,7 +107,6 @@ public class IbuFragment extends Fragment {
         Integer hasil = dbHelper.findHasil(hm);
 
         if(hasil > 0){
-            simpan.setVisibility(View.GONE);
             viewData(false);
         }else{
             viewData(true);
@@ -129,7 +128,8 @@ public class IbuFragment extends Fragment {
                 SparseBooleanArray sba = listViewData.getCheckedItemPositions();
                 StringBuffer sb = new StringBuffer("");
 
-
+                String[] where = {iddgs,"ibu"};
+                dbHelper.delHasilData(where);
 
                 if(sba != null){
                     for(int i = 0; i < sba.size(); i++){
@@ -142,6 +142,7 @@ public class IbuFragment extends Fragment {
                             Integer idI = i+1;
 
                             HasilModel hm = new HasilModel(iddgs,"ibu"+di,"1",null);
+
                             dbHelper.addHasil(hm);
 
                             Intent intent = new Intent(getContext(),DiagnosaActivity.class);
@@ -188,12 +189,14 @@ public class IbuFragment extends Fragment {
                         Log.d(TAG, "getView: "+position+"-"+hsl);
                         if (hsl.equals("1")){
                             ctv.setChecked(true);
-                            ctv.setEnabled(false);
-                            ctv.setCheckMarkDrawable(R.drawable.ic_baseline_check_circle_outline_24);
+                            ctv.setEnabled(true);
+                            listViewData.setItemChecked(position,true);
+//                            ctv.setCheckMarkDrawable(R.drawable.ic_baseline_check_circle_outline_24);
                         }else{
                             ctv.setEnabled(true);
                             ctv.setChecked(false);
-                            ctv.setCheckMarkDrawable(R.drawable.ic_baseline_clear_24);
+                            listViewData.setItemChecked(position,false);
+//                            ctv.setCheckMarkDrawable(R.drawable.ic_baseline_clear_24);
                         }
                     }
 
