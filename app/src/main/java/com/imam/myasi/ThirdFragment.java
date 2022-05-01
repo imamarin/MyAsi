@@ -85,13 +85,18 @@ public class ThirdFragment extends Fragment {
                 searchbar.clearFocus();
                 searchbar.setFocusable(true);
                 searchbar.requestFocus();
-                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                if(searchbar.hasFocus()==true){
+                    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                }
+
+
 //                searchbar.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //                    @Override
 //                    public void onFocusChange(View view, boolean hasFocus) {
 //                        if(hasFocus){
-//
+//                            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+//                            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 //                        }
 //                    }
 //                });
