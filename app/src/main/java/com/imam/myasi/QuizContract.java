@@ -27,6 +27,7 @@ public final class QuizContract {
         public static final String TABLE_NAME = "diagnosa";
         public static final String COLUMN_JUDUL = "judul";
         public static final String COLUMN_TANGGAL = "tanggal";
+        public static final String COLUMN_STATUS = "status";
     }
 
     public static class HasilTable implements BaseColumns{

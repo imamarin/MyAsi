@@ -44,6 +44,7 @@ public class BayiFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private ListView listViewData;
+    private String status;
 
     ArrayList<String> listItem;
     ArrayAdapter adapter;
@@ -104,6 +105,14 @@ public class BayiFragment extends Fragment {
         Integer hasil = dbHelper.findHasil(hm);
 
         if(hasil > 0){
+            DiagnosaModel dm = new DiagnosaModel(null,Integer.valueOf(iddgs),null);
+            String status = dbHelper.findDiagnosa(dm);
+            if(status.equals("1")){
+                simpan.setVisibility(View.GONE);
+                this.status = status;
+            }else{
+                this.status = "0";
+            }
             viewData(false);
         }else{
             viewData(true);
@@ -184,12 +193,20 @@ public class BayiFragment extends Fragment {
                         if (hsl.equals("1")){
                             ctv.setChecked(true);
                             ctv.setEnabled(true);
-                            listViewData.setItemChecked(position,true);
+                            if(status.equals("1")){
+                                ctv.setCheckMarkDrawable(R.drawable.ic_baseline_check_circle_outline_24);
+                            }else{
+                                listViewData.setItemChecked(position,true);
+                            }
 //                            ctv.setCheckMarkDrawable(R.drawable.ic_baseline_check_circle_outline_24);
                         }else{
                             ctv.setEnabled(true);
                             ctv.setChecked(false);
-                            listViewData.setItemChecked(position,false);
+                            if(status.equals("1")) {
+                                ctv.setCheckMarkDrawable(R.drawable.ic_baseline_clear_24);
+                            }else{
+                                listViewData.setItemChecked(position, false);
+                            }
 //                            ctv.setCheckMarkDrawable(R.drawable.ic_baseline_clear_24);
                         }
                     }

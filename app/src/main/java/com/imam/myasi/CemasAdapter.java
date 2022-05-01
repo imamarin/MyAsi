@@ -30,6 +30,7 @@ public class CemasAdapter extends RecyclerView.Adapter<CemasAdapter.CemasVH> {
 
     String[] idPertanyaan;
     String[] idHasil;
+    String status;
 
     public CemasAdapter() {
     }
@@ -65,6 +66,7 @@ public class CemasAdapter extends RecyclerView.Adapter<CemasAdapter.CemasVH> {
         this.cemas = cemas;
         this.context = context;
         this.passData = passData;
+
         initArray();
     }
 
@@ -235,6 +237,7 @@ public class CemasAdapter extends RecyclerView.Adapter<CemasAdapter.CemasVH> {
         TextView pertanyaan;
         RadioButton tidakpernah,kadang,sebagian,hampir;
         RadioGroup rgcemas;
+        @SuppressLint("RestrictedApi")
         public CemasVH(@NonNull View v) {
             super(v);
             pertanyaan = v.findViewById(R.id.txtpertanyaan);
@@ -244,6 +247,12 @@ public class CemasAdapter extends RecyclerView.Adapter<CemasAdapter.CemasVH> {
             hampir = v.findViewById(R.id.hampirwaktu);
             rgcemas = v.findViewById(R.id.rg_cemas);
 
+            if(status.equals("1")){
+                tidakpernah.setEnabled(false);
+                kadang.setEnabled(false);
+                sebagian.setEnabled(false);
+                hampir.setEnabled(false);
+            }
 
 //            passData.onCreate();
         }

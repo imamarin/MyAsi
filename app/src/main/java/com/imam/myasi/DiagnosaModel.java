@@ -8,14 +8,24 @@ public class DiagnosaModel {
     private String judul;
     private String tanggal;
     private int id;
+    private String status;
 
 
     public DiagnosaModel(){}
 
-    public DiagnosaModel(String judul, int id) {
+    public DiagnosaModel(String judul, int id, String status) {
         this.judul = judul;
         this.tanggal = tanggal;
         this.id = id;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getId() {

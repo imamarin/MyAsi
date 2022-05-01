@@ -5,10 +5,14 @@
       <map>
         <entry key="..\:/Users/IMAM AMIRULLOH/AndroidStudioProjects/MyAsi/app/src/main/res/drawable/check_cemas.xml" value="0.193" />
         <entry key="..\:/Users/IMAM AMIRULLOH/AndroidStudioProjects/MyAsi/app/src/main/res/drawable/choice_cemas.xml" value="0.193" />
+        <entry key="..\:/Users/IMAM AMIRULLOH/AndroidStudioProjects/MyAsi/app/src/main/res/layout/activity_test.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/IMAM AMIRULLOH/AndroidStudioProjects/MyAsi/app/src/main/res/layout/activity_test2.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/IMAM AMIRULLOH/AndroidStudioProjects/MyAsi/app/src/main/res/layout/fragment_cemas.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/IMAM AMIRULLOH/AndroidStudioProjects/MyAsi/app/src/main/res/layout/fragment_first.xml" value="0.3625" />
         <entry key="..\:/Users/IMAM AMIRULLOH/AndroidStudioProjects/MyAsi/app/src/main/res/layout/fragment_ibu.xml" value="0.16802536231884058" />
         <entry key="..\:/Users/IMAM AMIRULLOH/AndroidStudioProjects/MyAsi/app/src/main/res/layout/fragment_list_diagnosa.xml" value="0.3625" />
+        <entry key="..\:/Users/IMAM AMIRULLOH/AndroidStudioProjects/MyAsi/app/src/main/res/layout/fragment_second.xml" value="0.1762917933130699" />
+        <entry key="..\:/Users/IMAM AMIRULLOH/AndroidStudioProjects/MyAsi/app/src/main/res/layout/fragment_three.xml" value="0.25" />
         <entry key="..\:/Users/IMAM AMIRULLOH/AndroidStudioProjects/MyAsi/app/src/main/res/layout/list_item_cemas.xml" value="0.1" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/MyAsi/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.23293172690763053" />
         <entry key="..\:/Users/pc/AndroidStudioProjects/MyAsi/app/src/main/res/layout/activity_diagnosa.xml" value="0.3625" />

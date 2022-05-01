@@ -52,7 +52,8 @@ public class DbHelper extends SQLiteOpenHelper {
                     DiagnosaTable.TABLE_NAME + " ( " +
                     DiagnosaTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     DiagnosaTable.COLUMN_JUDUL + " VARCHAR(50), " +
-                    DiagnosaTable.COLUMN_TANGGAL + " DATE " +
+                    DiagnosaTable.COLUMN_TANGGAL + " DATE, " +
+                    DiagnosaTable.COLUMN_STATUS +" VARCHAR(1) "+
                     ")";
 
             final String SQL_CREATE_HASIL_TABLE = "CREATE TABLE " +
@@ -170,6 +171,7 @@ public class DbHelper extends SQLiteOpenHelper {
             ContentValues cv = new ContentValues();
             cv.put(DiagnosaTable.COLUMN_JUDUL, diagnosa.getJudul());
             cv.put(DiagnosaTable.COLUMN_TANGGAL, ft.format(date));
+            cv.put(DiagnosaTable.COLUMN_STATUS, "0");
             db.insert(DiagnosaTable.TABLE_NAME, null, cv);
         }
 
@@ -180,6 +182,20 @@ public class DbHelper extends SQLiteOpenHelper {
             cv.put(HasilTable.ID_QUESTION, hasil.getIdquestion());
             cv.put(HasilTable.COLUMN_HASIL, hasil.getHasil());
             db.insert(HasilTable.TABLE_NAME, null, cv);
+        }
+
+        @SuppressLint("Range")
+        public String findDiagnosa(DiagnosaModel dm){
+            String status = "0";
+            db = getReadableDatabase();
+            Cursor c =  db.rawQuery("SELECT * FROM "+DiagnosaTable.TABLE_NAME+" WHERE "+
+                    DiagnosaTable.COLUMN_STATUS + " = '"+dm.getId()+"' ",null);
+            if(c.moveToFirst()){
+                status = c.getString(c.getColumnIndex(DiagnosaTable.COLUMN_STATUS));
+                c.close();
+            }
+            return status;
+
         }
 
         @SuppressLint("Range")
@@ -265,6 +281,12 @@ public class DbHelper extends SQLiteOpenHelper {
 //                    HasilTable.ID_QUESTION + " = '"+hasil.getIdquestion()+"'",null);
         }
 
+        public void updateDiagnosa(DiagnosaModel dm){
+            db = getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            cv.put(DiagnosaTable.COLUMN_STATUS,dm.getStatus());
+            db.update(DiagnosaTable.TABLE_NAME,cv,DiagnosaTable._ID+"=?",new String[]{String.valueOf(dm.getId())});
+        }
 
 
         @SuppressLint("Range")

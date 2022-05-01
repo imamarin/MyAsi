@@ -19,9 +19,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
 /**
@@ -42,6 +45,7 @@ public class ListDiagnosa extends Fragment {
     private ImageButton backdiagnosa;
     private MaterialCardView indikatorbayi, indikatoribu, tescemas;
     private TextView title,txtbayi,txtibu,txtcemas;
+    private MaterialButton btnterapi;
     View root;
     public ListDiagnosa() {
         // Required empty public constructor
@@ -97,6 +101,7 @@ public class ListDiagnosa extends Fragment {
         txtbayi = view.findViewById(R.id.txtBayi);
         txtibu = view.findViewById(R.id.txtIbu);
         txtcemas = view.findViewById(R.id.txtCemas);
+        btnterapi = view.findViewById(R.id.btnTerapi);
 
         @SuppressLint("WrongConstant") SharedPreferences session = ((Activity) getContext()).getSharedPreferences("sessionku", Context.MODE_APPEND);
         title.setText(session.getString("jdlDiagnosa",""));
@@ -107,14 +112,47 @@ public class ListDiagnosa extends Fragment {
         HasilModel hmibu = new HasilModel(iddgs,null,null,"ibu");
         Integer nilaiIbu = dbHelper.findHasil(hmibu);
         txtibu.setText(String.valueOf(nilaiIbu));
+        if(nilaiIbu>=5){
+            txtibu.setText("Lancer");
+        }else{
+            txtibu.setText("Tidak Lancer");
+        }
 
         HasilModel hmbayi = new HasilModel(iddgs,null,null,"bayi");
         Integer nilaiBayi = dbHelper.findHasil(hmbayi);
-        txtbayi.setText(String.valueOf(nilaiBayi));
+        if(nilaiBayi>=4){
+            txtbayi.setText("Lancer");
+        }else{
+            txtbayi.setText("Tidak Lancer");
+        }
+
 
         HasilModel hmcemas = new HasilModel(iddgs,null,null,"cemas");
         Integer nilaiCemas = dbHelper.findHasil(hmcemas);
         txtcemas.setText(String.valueOf(nilaiCemas));
+        if(nilaiCemas>=75){
+            txtcemas.setText("Cemas Berat");
+        }else if(nilaiCemas>=60){
+            txtcemas.setText("Cemas Sedang");
+        }else if(nilaiCemas>=45){
+            txtcemas.setText("Cemas Ringan");
+        }else{
+            txtcemas.setText("Normal");
+        }
+
+        btnterapi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtibu.getText().equals("0") || txtbayi.getText().equals("0") || txtcemas.getText().equals("0") ){
+                    Toast.makeText(getContext(), "Mohon maaf selesaikan terlebih dahulu pemeriksaan!",Toast.LENGTH_SHORT).show();
+
+                }else{
+                    Toast.makeText(getContext(), "Anda bisa terapi",Toast.LENGTH_SHORT).show();
+                    DiagnosaModel diagnosa = new DiagnosaModel(null,Integer.valueOf(iddgs),"1");
+                    dbHelper.updateDiagnosa(diagnosa);
+                }
+            }
+        });
 
         indikatorbayi.setOnClickListener(new View.OnClickListener() {
             @Override

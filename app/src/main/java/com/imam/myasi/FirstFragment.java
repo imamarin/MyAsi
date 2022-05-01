@@ -92,7 +92,7 @@ public class FirstFragment extends Fragment {
                 alertD.setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        DiagnosaModel dgs = new DiagnosaModel(editDiagnosa.getText().toString(),0);
+                        DiagnosaModel dgs = new DiagnosaModel(editDiagnosa.getText().toString(),0,"0");
                         dbHelper.addDiagnosa(dgs);
 
                         getActivity().finish();
@@ -136,7 +136,7 @@ public class FirstFragment extends Fragment {
                 alertD.setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        DiagnosaModel dgs = new DiagnosaModel(editDiagnosa.getText().toString(),0);
+                        DiagnosaModel dgs = new DiagnosaModel(editDiagnosa.getText().toString(),0,"0");
                         dbHelper.addDiagnosa(dgs);
 
                         getActivity().finish();

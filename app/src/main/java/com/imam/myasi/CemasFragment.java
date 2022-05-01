@@ -6,10 +6,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -48,6 +50,7 @@ public class CemasFragment extends Fragment {
 
 //    private ListView listViewData;
     private RecyclerView listViewData;
+    private String status;
 
 //    ArrayList<String> listItem;
     ArrayList<CemasModel> cemasmodel;
@@ -98,6 +101,7 @@ public class CemasFragment extends Fragment {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -112,6 +116,16 @@ public class CemasFragment extends Fragment {
 
         idPertanyaan = new String[15];
         Hasil = new String[15];
+
+        DiagnosaModel dm = new DiagnosaModel(null,Integer.valueOf(iddgs),null);
+        String stt = dbHelper.findDiagnosa(dm);
+        if(stt.equals("1")){
+            status = stt;
+            listViewData.setEnabled(false);
+            simpan.setVisibility(View.GONE);
+        }else{
+            status = "0";
+        }
 
         adapter = new CemasAdapter(cemasmodel, getContext(), new CemasAdapter.PassData() {
             @Override
@@ -135,17 +149,20 @@ public class CemasFragment extends Fragment {
 
             @Override
             public void onCreate(String[] hasil) {
-                Hasil = hasil;
+
             }
         });
 
         Hasil = adapter.getIdHasil();
         idPertanyaan = adapter.getIdPertanyaan();
+        adapter.status = status;
         listViewData.setAdapter(adapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(RecyclerView.HORIZONTAL);
         listViewData.setLayoutManager(llm);
+
+
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,10 +171,10 @@ public class CemasFragment extends Fragment {
                         HasilModel hm = new HasilModel(iddgs,idPertanyaan[a],Hasil[a],"cemas");
                         String hsl = db.findHasil2(hm);
                         if(hsl.equals("1")){
-                            Log.d(TAG, "onClick: update="+idPertanyaan[a]+"-"+Hasil[a]);
+//                            Log.d(TAG, "onClick: update="+idPertanyaan[a]+"-"+Hasil[a]);
                             db.updateHasil(hm);
                         }else{
-                            Log.d(TAG, "onClick: insert="+idPertanyaan[a]+"-"+Hasil[a]);
+//                            Log.d(TAG, "onClick: insert="+idPertanyaan[a]+"-"+Hasil[a]);
                             db.addHasil(hm);
                         }
                     }
@@ -165,7 +182,7 @@ public class CemasFragment extends Fragment {
                     intent.putExtra("listdiagnosa", 1);
                     getContext().startActivity(intent);
                 }else{
-                    Log.d(TAG, "onClick: nilai array ="+Arrays.toString(Hasil));
+//                    Log.d(TAG, "onClick: nilai array ="+Arrays.toString(Hasil));
                     Toast.makeText(getContext(),"Maaf, ada pertanyaan yang belum dijawab!",Toast.LENGTH_LONG).show();
                 }
             }

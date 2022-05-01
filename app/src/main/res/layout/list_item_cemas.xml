@@ -38,9 +38,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center">
-                    <RadioButton
+                    <com.google.android.material.radiobutton.MaterialRadioButton
                         android:id="@+id/tidakpernah"
                         android:background="#F44336"
+                        android:textColor="@color/white"
                         android:layout_marginBottom="10dp"
                         android:padding="10dp"
                         android:layout_width="200dp"
@@ -50,6 +51,7 @@
                     <RadioButton
                         android:id="@+id/kadangkadang"
                         android:background="#F44336"
+                        android:textColor="@color/white"
                         android:layout_marginBottom="10dp"
                         android:padding="10dp"
                         android:layout_width="200dp"
@@ -59,6 +61,7 @@
                     <RadioButton
                         android:id="@+id/sebagian"
                         android:background="#F44336"
+                        android:textColor="@color/white"
                         android:layout_marginBottom="10dp"
                         android:padding="10dp"
                         android:layout_width="200dp"
@@ -68,6 +71,7 @@
                     <RadioButton
                         android:id="@+id/hampirwaktu"
                         android:background="#F44336"
+                        android:textColor="@color/white"
                         android:padding="10dp"
                         android:layout_width="200dp"
                         android:button="@android:color/transparent"
