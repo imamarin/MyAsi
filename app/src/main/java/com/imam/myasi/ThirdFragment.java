@@ -2,11 +2,17 @@ package com.imam.myasi;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +29,8 @@ public class ThirdFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ImageButton cariartikel, back;
+    private LinearLayout titlebar,searchbar;
 
     public ThirdFragment() {
         // Required empty public constructor
@@ -60,5 +68,42 @@ public class ThirdFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_three, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        titlebar = view.findViewById(R.id.titleBar);
+        searchbar = view.findViewById(R.id.searchBar);
+        cariartikel = view.findViewById(R.id.cariArtikel);
+        back = view.findViewById(R.id.backTitleBar);
+        cariartikel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                titlebar.setVisibility(View.GONE);
+                searchbar.setVisibility(View.VISIBLE);
+                searchbar.clearFocus();
+                searchbar.setFocusable(true);
+                searchbar.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+//                searchbar.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//                    @Override
+//                    public void onFocusChange(View view, boolean hasFocus) {
+//                        if(hasFocus){
+//
+//                        }
+//                    }
+//                });
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                titlebar.setVisibility(View.VISIBLE);
+                searchbar.setVisibility(View.GONE);
+            }
+        });
     }
 }
