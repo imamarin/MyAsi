@@ -113,8 +113,10 @@ public class BayiFragment extends Fragment {
             }else{
                 this.status = "0";
             }
+            Log.d(TAG, "onViewCreated: status"+Integer.valueOf(iddgs));
             viewData(false);
         }else{
+            Log.d(TAG, "onViewCreated: status null");
             viewData(true);
         }
         listViewData.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);

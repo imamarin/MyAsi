@@ -189,7 +189,7 @@ public class DbHelper extends SQLiteOpenHelper {
             String status = "0";
             db = getReadableDatabase();
             Cursor c =  db.rawQuery("SELECT * FROM "+DiagnosaTable.TABLE_NAME+" WHERE "+
-                    DiagnosaTable.COLUMN_STATUS + " = '"+dm.getId()+"' ",null);
+                    DiagnosaTable._ID + " = '"+dm.getId()+"' ",null);
             if(c.moveToFirst()){
                 status = c.getString(c.getColumnIndex(DiagnosaTable.COLUMN_STATUS));
                 c.close();

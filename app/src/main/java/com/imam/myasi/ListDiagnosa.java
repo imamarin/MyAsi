@@ -112,38 +112,53 @@ public class ListDiagnosa extends Fragment {
         HasilModel hmibu = new HasilModel(iddgs,null,null,"ibu");
         Integer nilaiIbu = dbHelper.findHasil(hmibu);
         txtibu.setText(String.valueOf(nilaiIbu));
-        if(nilaiIbu>=5){
-            txtibu.setText("Lancer");
+        if(nilaiIbu > 0){
+            if(nilaiIbu>=5){
+                txtibu.setText("Lancer");
+            }else{
+                txtibu.setText("Tidak Lancer");
+            }
         }else{
-            txtibu.setText("Tidak Lancer");
+            txtibu.setText("-");
         }
 
         HasilModel hmbayi = new HasilModel(iddgs,null,null,"bayi");
         Integer nilaiBayi = dbHelper.findHasil(hmbayi);
-        if(nilaiBayi>=4){
-            txtbayi.setText("Lancer");
+        if(nilaiBayi > 0){
+            if(nilaiBayi>=4){
+                txtbayi.setText("Lancer");
+            }else{
+                txtbayi.setText("Tidak Lancer");
+            }
         }else{
-            txtbayi.setText("Tidak Lancer");
+            txtbayi.setText("-");
         }
+
 
 
         HasilModel hmcemas = new HasilModel(iddgs,null,null,"cemas");
         Integer nilaiCemas = dbHelper.findHasil(hmcemas);
         txtcemas.setText(String.valueOf(nilaiCemas));
-        if(nilaiCemas>=75){
-            txtcemas.setText("Cemas Berat");
-        }else if(nilaiCemas>=60){
-            txtcemas.setText("Cemas Sedang");
-        }else if(nilaiCemas>=45){
-            txtcemas.setText("Cemas Ringan");
+        if(nilaiCemas > 0){
+            if(nilaiCemas>=75){
+                txtcemas.setText("Cemas Berat");
+            }else if(nilaiCemas>=60){
+                txtcemas.setText("Cemas Sedang");
+            }else if(nilaiCemas>=45){
+                txtcemas.setText("Cemas Ringan");
+            }else{
+                txtcemas.setText("Normal");
+            }
+
         }else{
-            txtcemas.setText("Normal");
+            txtcemas.setText("-");
         }
+
 
         btnterapi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(txtibu.getText().equals("0") || txtbayi.getText().equals("0") || txtcemas.getText().equals("0") ){
+                if(txtibu.getText().equals("-") || txtbayi.getText().equals("-") || txtcemas.getText().equals("-") ){
                     Toast.makeText(getContext(), "Mohon maaf selesaikan terlebih dahulu pemeriksaan!",Toast.LENGTH_SHORT).show();
 
                 }else{
