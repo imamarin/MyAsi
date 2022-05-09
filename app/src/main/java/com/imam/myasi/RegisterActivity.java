@@ -13,12 +13,14 @@ import android.widget.EditText;
 import android.content.ContentValues;
 import com.imam.myasi.QuizContract.*;
 import android.content.Context;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText editNama, editKtp, editHp, editEmail, editPassword;
     private Button btnDaftar;
+    private ImageButton backlogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         editEmail = findViewById(R.id.email);
         editPassword = findViewById(R.id.password);
         btnDaftar = findViewById(R.id.daftar);
+        backlogin = findViewById(R.id.backlogin);
 
         DbHelper dbHelper = new DbHelper(this);
 
@@ -40,6 +43,13 @@ public class RegisterActivity extends AppCompatActivity {
                 UserModel usr = new UserModel(editNama.getText().toString(), editKtp.getText().toString(),
                         editHp.getText().toString(), editEmail.getText().toString(), editPassword.getText().toString());
                 dbHelper.addUser(usr);
+            }
+        });
+
+        backlogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
     }

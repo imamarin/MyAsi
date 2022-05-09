@@ -1,84 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context=".RegisterActivity">
-    <TextView
-        android:id="@+id/registrasi"
-        android:layout_width="361dp"
-        android:layout_height="28dp"
-        android:text="REGISTRASI"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="7dp"
-        tools:layout_editor_absoluteY="54dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/barDiagnosa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#009688"
+        android:theme="@style/Theme.MyAsi.AppBarOverlay"
+        >
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00018786"
+            app:popupTheme="@style/Theme.MyAsi.PopupOverlay">
 
-    <EditText
-        android:id="@+id/nama"
-        android:layout_width="380dp"
-        android:layout_height="50dp"
-        android:ems="10"
+            <ImageButton
+                android:id="@+id/backlogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:src="@drawable/ic_baseline_arrow_back_24" />
+            <TextView
+                android:gravity="right"
+                android:id="@+id/registrasi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:text="REGISTRASI"
+                android:textSize="15dp"
+                android:layout_marginRight="10dp"
+                android:textStyle="bold"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="100dp"
-        android:hint="Nama Lengkap"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="144dp"
-        app:layout_constraintStart_toStartOf="@+id/registrasi"
-        app:layout_constraintTop_toBottomOf="@+id/registrasi" />
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/ktp"
-        android:layout_width="379dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:hint="No. KTP"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="@+id/nama"
-        app:layout_constraintTop_toBottomOf="@+id/nama"
-        tools:layout_editor_absoluteY="203dp" />
+        <EditText
+            android:id="@+id/nama"
+            android:layout_width="match_parent"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:textColorHint="@color/basic"
+            android:backgroundTint="@color/basic"
+            android:layout_height="50dp"
+            android:selectAllOnFocus="true"
+            android:ems="10"
+            android:hint="Nama Lengkap" />
 
-    <EditText
-        android:id="@+id/hp"
-        android:layout_width="379dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:hint="No. Handphone"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="@+id/ktp"
-        app:layout_constraintTop_toBottomOf="@+id/ktp"
-        tools:layout_editor_absoluteY="257dp" />
+        <EditText
+            android:id="@+id/ktp"
+            android:layout_width="match_parent"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:textColorHint="@color/basic"
+            android:backgroundTint="@color/basic"
+            android:layout_height="50dp"
+            android:hint="No. KTP"
+            android:selectAllOnFocus="true"
+            android:inputType="number" />
 
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="379dp"
-        android:layout_height="48dp"
-        android:hint="@string/prompt_email"
-        android:inputType="textEmailAddress"
-        android:selectAllOnFocus="true"
-        app:layout_constraintStart_toStartOf="@+id/hp"
-        app:layout_constraintTop_toBottomOf="@+id/hp"/>
+        <EditText
+            android:id="@+id/hp"
+            android:layout_width="match_parent"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:textColorHint="@color/basic"
+            android:backgroundTint="@color/basic"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:hint="No. Handphone"
+            android:selectAllOnFocus="true"
+            android:inputType="number" />
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="377dp"
-        android:layout_height="48dp"
-        android:hint="@string/prompt_password"
-        android:imeActionLabel="@string/action_sign_in_short"
-        android:imeOptions="actionDone"
-        android:inputType="textPassword"
-        android:selectAllOnFocus="true"
-        app:layout_constraintStart_toStartOf="@+id/email"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:textColorHint="@color/basic"
+            android:backgroundTint="@color/basic"
+            android:layout_height="50dp"
+            android:hint="@string/prompt_email"
+            android:selectAllOnFocus="true"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:textColorHint="@color/basic"
+            android:backgroundTint="@color/basic"
+            android:layout_height="50dp"
+            android:hint="@string/prompt_password"
+            android:inputType="textPassword"
+            android:selectAllOnFocus="true"/>
+
+        <Button
+            android:id="@+id/daftar"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/basic"
+            android:enabled="true"
+            android:text="Daftar" />
+    </LinearLayout>
+
+
+
 
 
 
@@ -97,22 +141,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/daftar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="64dp"
-        android:enabled="true"
-        android:text="Daftar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="1.0" />
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
