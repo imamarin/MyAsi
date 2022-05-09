@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="hijau">#8BC34A</color>
     <color name="merah">#F44336</color>
+    <color name="basic">#009688</color>
 </resources>

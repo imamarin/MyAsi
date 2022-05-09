@@ -31,22 +31,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:choiceMode="multipleChoice" />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                android:background="#00018786">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/simpan"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#2196F3"
-                    android:text="SIMPAN"
-                    android:textColor="#FFFFFF"
-                    tools:ignore="TextContrastCheck" />
-            </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00018786"
+            android:gravity="bottom">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/simpan"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#2196F3"
+                android:text="SIMPAN"
+                android:textColor="#FFFFFF"
+                tools:ignore="TextContrastCheck" />
+        </RelativeLayout>
     </RelativeLayout>
 
 
