@@ -3,6 +3,7 @@ package com.imam.myasi;
 import static android.os.ParcelFileDescriptor.MODE_APPEND;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,7 +33,7 @@ public class SecondFragment extends Fragment {
     private ListView listView;
     private ArrayList<String> listItem;
     private ArrayAdapter adapter;
-    SharedPreferences sh;
+    private SharedPreferences sh;
 
     @Override
     public View onCreateView(
@@ -60,6 +62,7 @@ public class SecondFragment extends Fragment {
         listItem.add("No. KTP");
         listItem.add("Email");
         listItem.add("No. Handphone");
+        listItem.add("KELUAR");
         viewData(listItem);
 
     }
@@ -73,14 +76,14 @@ public class SecondFragment extends Fragment {
                 TextView title = view.findViewById(android.R.id.text1);
                 TextView subtitle = view.findViewById(android.R.id.text2);
                 subtitle.setTextColor(Color.GRAY);
-
+                title.setGravity(View.TEXT_ALIGNMENT_CENTER);
                 if (title.getText().equals("Nama")) {
                     subtitle.setText(sh.getString("nama",""));
                 } else if (title.getText().equals("No. KTP")){
                     subtitle.setText(sh.getString("ktp",""));
                 } else if (title.getText().equals("No. Handphone")){
                     subtitle.setText(sh.getString("hp",""));
-                } else {
+                } else if (title.getText().equals("Email")) {
                     subtitle.setText(sh.getString("email",""));
                 }
 
@@ -88,6 +91,18 @@ public class SecondFragment extends Fragment {
             }
         };
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(listItem.get(i).equals("KELUAR")){
+                    SharedPreferences preferences = getActivity().getSharedPreferences("sessionku", 0);
+                    preferences.edit().clear().commit();
+
+                    Intent intent = new Intent(getContext(),LoginActivity.class);
+                    getContext().startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override

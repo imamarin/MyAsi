@@ -1,54 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/basic"
     tools:context=".LoginActivity">
 
 
     <TextView
         android:id="@+id/login"
-        android:layout_width="361dp"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
         android:layout_height="28dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="188dp"
         android:text="LOGIN"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold" />
 
     <EditText
+        android:layout_marginTop="50dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/white"
+        android:textColorHint="@color/white"
+        android:drawablePadding="10dp"
+        android:id="@+id/email"
+        android:drawableLeft="@drawable/ic_baseline_email_24"
+        android:drawableTint="@color/white"
+        android:layout_width="379dp"
+        android:layout_height="48dp"
+        android:hint="email"
+        android:inputType="textEmailAddress"
+        android:selectAllOnFocus="true" />
+
+    <EditText
+        android:textColor="@color/white"
+        android:backgroundTint="@color/white"
+        android:textColorHint="@color/white"
+        android:drawableLeft="@drawable/ic_baseline_key_24"
+        android:drawableTint="@color/white"
+        android:drawablePadding="10dp"
         android:id="@+id/password"
         android:layout_width="377dp"
         android:layout_height="48dp"
         android:layout_marginTop="4dp"
-        android:hint="@string/prompt_password"
+        android:hint="password"
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
-        android:selectAllOnFocus="true"
-        app:layout_constraintStart_toStartOf="@+id/email"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        android:selectAllOnFocus="true" />
 
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="379dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="88dp"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:selectAllOnFocus="true"
-        app:layout_constraintStart_toStartOf="@+id/login"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
+
 
     <ProgressBar
         android:id="@+id/loading"
@@ -69,18 +74,21 @@
         android:id="@+id/masuk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
+        android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="10dp"
         android:enabled="true"
-        android:text="Masuk"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="1.0" />
+        android:backgroundTint="@color/teal_700"
+        android:text="Masuk" />
+
+    <TextView
+        android:id="@+id/daftar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Klik disini jika belum punya akun!"
+        android:textColor="@color/white"
+        android:gravity="center"/>
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

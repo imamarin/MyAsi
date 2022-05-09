@@ -1,5 +1,7 @@
 package com.imam.myasi;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -8,9 +10,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
@@ -18,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText email,password;
     private Button masuk;
     private String hasil;
+    private TextView daftar;
     SharedPreferences session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +32,10 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         masuk = findViewById(R.id.masuk);
+        daftar = findViewById(R.id.daftar);
 
         session = getSharedPreferences("sessionku", Context.MODE_PRIVATE);
+        Log.d(TAG, "onCreate: id "+session.getString("_id", ""));
         DbHelper dbHelper =new DbHelper(this);
         masuk.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("Range")
@@ -55,10 +62,19 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent in = new Intent(getApplicationContext(),DiagnosaActivity.class);
                     startActivity(in);
+                    finish();
                 }
 
 
 
+            }
+        });
+
+        daftar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(getApplicationContext(),RegisterActivity.class);
+                startActivity(in);
             }
         });
     }
