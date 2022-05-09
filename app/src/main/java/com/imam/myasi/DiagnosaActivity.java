@@ -32,7 +32,9 @@ public class DiagnosaActivity extends AppCompatActivity{
         setContentView(binding.getRoot());
 
         if(getIntent().getExtras()!=null){
-            getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_content_diagnosa, new ListDiagnosa() ).commit();
+            if(getIntent().getExtras().equals("listdiagnosa")){
+                getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_content_diagnosa, new ListDiagnosa() ).commit();
+            }
         }
         binding.bnv.setSelectedItemId(R.id.diagnosamenu);
         binding.bnv.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

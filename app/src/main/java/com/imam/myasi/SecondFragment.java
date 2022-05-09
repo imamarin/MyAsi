@@ -1,6 +1,9 @@
 package com.imam.myasi;
 
+import static android.os.ParcelFileDescriptor.MODE_APPEND;
+
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +31,7 @@ public class SecondFragment extends Fragment {
     private ListView listView;
     private ArrayList<String> listItem;
     private ArrayAdapter adapter;
+    SharedPreferences sh;
 
     @Override
     public View onCreateView(
@@ -39,15 +43,16 @@ public class SecondFragment extends Fragment {
 
     }
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint({"ResourceAsColor", "WrongConstant"})
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getActivity().getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(R.color.teal_700);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Window window = getActivity().getWindow();
+//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            window.setStatusBarColor(R.color.teal_700);
+//        }
+        sh = getActivity().getSharedPreferences("sessionku", MODE_APPEND);
 
         listView = view.findViewById(R.id.listProfil);
         listItem =  new ArrayList<>();
@@ -68,14 +73,15 @@ public class SecondFragment extends Fragment {
                 TextView title = view.findViewById(android.R.id.text1);
                 TextView subtitle = view.findViewById(android.R.id.text2);
                 subtitle.setTextColor(Color.GRAY);
+
                 if (title.getText().equals("Nama")) {
-                    subtitle.setText("Imam Amirulloh");
+                    subtitle.setText(sh.getString("nama",""));
                 } else if (title.getText().equals("No. KTP")){
-                    subtitle.setText("12345678899");
+                    subtitle.setText(sh.getString("ktp",""));
                 } else if (title.getText().equals("No. Handphone")){
-                    subtitle.setText("08324278899");
+                    subtitle.setText(sh.getString("hp",""));
                 } else {
-                    subtitle.setText("imamamirulloh@gmail.com");
+                    subtitle.setText(sh.getString("email",""));
                 }
 
                 return view;

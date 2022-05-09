@@ -199,20 +199,21 @@ public class DbHelper extends SQLiteOpenHelper {
         }
 
         @SuppressLint("Range")
-        public String findUser(UserModel user){
+        public Cursor findUser(UserModel user){
             String email;
             db = getReadableDatabase();
             Cursor c =  db.rawQuery("SELECT * FROM "+UserTable.TABLE_NAME+" WHERE "+
                             UserTable.COLUMN_EMAIL + " = '"+ user.getEmail()+"' AND "+
                             UserTable.COLUMN_PASSWORD + " = '"+ user.getPassword()+"' ",null);
-            if(c.moveToFirst()){
-                email = c.getString(c.getColumnIndex(UserTable.COLUMN_EMAIL));
-                c.close();
-                return email;
-            }else{
-                c.close();
-                return "0";
-            }
+//            if(c.moveToFirst()){
+//                email = c.getString(c.getColumnIndex(UserTable.COLUMN_EMAIL));
+//                return c;
+//            }else{
+//                c.close();
+//                return "0";
+//            }
+
+            return c;
 
 
         }

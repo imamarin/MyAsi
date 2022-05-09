@@ -2,9 +2,11 @@ package com.imam.myasi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,19 +31,29 @@ public class LoginActivity extends AppCompatActivity {
         session = getSharedPreferences("sessionku", Context.MODE_PRIVATE);
         DbHelper dbHelper =new DbHelper(this);
         masuk.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("Range")
             @Override
             public void onClick(View view) {
                 UserModel usr = new UserModel(null, null,
                         null, email.getText().toString(), password.getText().toString());
-                hasil = dbHelper.findUser(usr);
+                Cursor hasil = dbHelper.findUser(usr);
 
-                if(hasil=="0"){
-                    Toast.makeText(getApplicationContext(),hasil,Toast.LENGTH_LONG).show();
+                if(hasil.getCount() <= 0){
+                    Toast.makeText(getApplicationContext(),"Login Anda Gagal!",Toast.LENGTH_LONG).show();
                 }else{
                     SharedPreferences.Editor editor = session.edit();
-                    editor.putString("email", hasil);
-                    editor.commit();
-                    Intent in = new Intent(getApplicationContext(),MainActivity.class);
+                    if (hasil.moveToNext()) {
+                        editor.putString("email", hasil.getString(hasil.getColumnIndex("email")));
+                        editor.putString("hp",hasil.getString(hasil.getColumnIndex("hp")));
+                        editor.putString("nama",hasil.getString(hasil.getColumnIndex("nama")));
+                        editor.putString("ktp",hasil.getString(hasil.getColumnIndex("ktp")));
+                        editor.putString("_id",hasil.getString(hasil.getColumnIndex("_id")));
+                        editor.commit();
+
+                    }
+                    hasil.close();
+
+                    Intent in = new Intent(getApplicationContext(),DiagnosaActivity.class);
                     startActivity(in);
                 }
 
