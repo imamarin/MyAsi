@@ -180,7 +180,7 @@ public class CemasFragment extends Fragment {
                         }
                     }
                     Intent intent = new Intent(getContext(),DiagnosaActivity.class);
-                    intent.putExtra("listdiagnosa", 1);
+                    intent.putExtra("listdiagnosa", "1");
                     getContext().startActivity(intent);
                 }else{
 //                    Log.d(TAG, "onClick: nilai array ="+Arrays.toString(Hasil));

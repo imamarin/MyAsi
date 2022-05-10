@@ -157,7 +157,7 @@ public class IbuFragment extends Fragment {
                             dbHelper.addHasil(hm);
 
                             Intent intent = new Intent(getContext(),DiagnosaActivity.class);
-                            intent.putExtra("listdiagnosa", 1);
+                            intent.putExtra("listdiagnosa", "1");
                             getContext().startActivity(intent);
 
                         }

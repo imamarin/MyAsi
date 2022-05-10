@@ -49,10 +49,11 @@ public class DiagnosaActivity extends AppCompatActivity{
             binding = ActivityDiagnosaBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
 
-            if(getIntent().getExtras()!=null){
-                if(getIntent().getExtras().equals("listdiagnosa")){
-                    getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_content_diagnosa, new ListDiagnosa() ).commit();
-                }
+            if(getIntent().hasExtra("listdiagnosa")){
+//                Log.d(TAG, "onCreate: intent: "+getIntent().getExtras().getString("listdiagnosa"));
+
+                getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_content_diagnosa, new ListDiagnosa() ).commit();
+
             }
             binding.bnv.setSelectedItemId(R.id.diagnosamenu);
             binding.bnv.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
