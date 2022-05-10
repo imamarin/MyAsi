@@ -145,6 +145,7 @@ public class CemasFragment extends Fragment {
 //                    Log.d(TAG, "onClick: insert="+id+"-"+hasil);
 //                    db.addHasil(hm);
 //                }
+//                listViewData.scrollToPosition(pos+1);
             }
 
             @Override

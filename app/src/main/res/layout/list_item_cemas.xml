@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-                <TextView
+            <TextView
                 android:id="@+id/txtpertanyaan"
                 android:textSize="20dp"
                 android:layout_width="match_parent"
